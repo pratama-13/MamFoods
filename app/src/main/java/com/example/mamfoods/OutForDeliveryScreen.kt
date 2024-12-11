@@ -11,7 +11,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.mamfoods.ui.theme.TitleText
 
 @Composable
@@ -41,7 +43,7 @@ fun OutForDeliveryScreen(onBackClick: () -> Unit) {
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = "Out for Delivery",
-                style = TitleText,
+                style = TitleText.copy(fontSize = 30.sp),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.weight(5f)
             )
@@ -98,4 +100,9 @@ fun OutForDeliveryScreen(onBackClick: () -> Unit) {
             }
         }
     }
+}
+@Preview(showBackground = true)
+@Composable
+fun OutForDeliveryScreenPreview() {
+    OutForDeliveryScreen(onBackClick = {})
 }

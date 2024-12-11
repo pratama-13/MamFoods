@@ -1,15 +1,8 @@
 package com.example.mamfoods.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -17,17 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.mamfoods.ui.theme.BodyText
-import com.example.mamfoods.ui.theme.ButtonHeight
-import com.example.mamfoods.ui.theme.ButtonWidth
-import com.example.mamfoods.ui.theme.DefaultPadding
-import com.example.mamfoods.ui.theme.LightGrayColor
-import com.example.mamfoods.ui.theme.PriceText
-import com.example.mamfoods.ui.theme.RedGradient1
-import com.example.mamfoods.ui.theme.SubText
-import com.example.mamfoods.ui.theme.TitleText
+import androidx.compose.ui.unit.sp
+import com.example.mamfoods.R
 
 @Composable
 fun DashboardScreen(
@@ -35,23 +25,39 @@ fun DashboardScreen(
     onViewAllItemsClick: () -> Unit,
     onDeliveryStatusClick: () -> Unit,
     onProfileClick: () -> Unit,
-    onCreateUserClick: () -> Unit
+    onLogoutClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(LightGrayColor)
-            .padding(DefaultPadding),
+            .background(Color.White)
+            .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Header
+        // Header with Logo in the top left corner
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start
+        ) {
+            Image(
+               painter = painterResource(id = R.drawable.logo),
+                contentDescription = "Logo Mam Foods",
+                modifier = Modifier.size(30.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(5.dp))
+
+        // Header Text
         Text(
             text = "Mam Foods",
-            style = TitleText,
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Red,
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(DefaultPadding))
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Info Cards
         Row(
@@ -59,11 +65,11 @@ fun DashboardScreen(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             InfoCard("Pending Order", "30")
-            InfoCard("Completed Order", "10")
-            InfoCard("Whole Time Earning", "100k")
+            InfoCard("Completed order", "10")
+            InfoCard("Whole Time Earning", "100K")
         }
 
-        Spacer(modifier = Modifier.height(DefaultPadding))
+        Spacer(modifier = Modifier.height(24.dp))
 
         // Menu Buttons
         ButtonGrid(
@@ -71,7 +77,7 @@ fun DashboardScreen(
             onViewAllItemsClick = onViewAllItemsClick,
             onDeliveryStatusClick = onDeliveryStatusClick,
             onProfileClick = onProfileClick,
-            onCreateUserClick = onCreateUserClick
+            onLogoutClick = onLogoutClick
         )
     }
 }
@@ -80,20 +86,24 @@ fun DashboardScreen(
 fun InfoCard(title: String, value: String) {
     Column(
         modifier = Modifier
-            .width(110.dp)
-            .background(LightGrayColor, shape = RoundedCornerShape(8.dp))
+            .width(100.dp)
+            .background(Color(0xFFFFF0F0), shape = RoundedCornerShape(8.dp))
             .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = title,
-            style = BodyText,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color.Red,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = value,
-            style = PriceText,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Green,
             textAlign = TextAlign.Center
         )
     }
@@ -105,10 +115,10 @@ fun ButtonGrid(
     onViewAllItemsClick: () -> Unit,
     onDeliveryStatusClick: () -> Unit,
     onProfileClick: () -> Unit,
-    onCreateUserClick: () -> Unit
+    onLogoutClick: () -> Unit
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(DefaultPadding),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
@@ -131,7 +141,7 @@ fun ButtonGrid(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            MenuButton("Create New User", onCreateUserClick)
+            MenuButton("Log Out", onLogoutClick)
         }
     }
 }
@@ -141,17 +151,31 @@ fun MenuButton(title: String, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         modifier = Modifier
-            .width(ButtonWidth)
-            .height(ButtonHeight),
+            .width(140.dp)
+            .height(50.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = RedGradient1
+            containerColor = Color(0xFFFFC0C0)
         ),
         shape = RoundedCornerShape(8.dp)
     ) {
         Text(
             text = title,
-            style = SubText.copy(color = LightGrayColor),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = Color.Red,
             textAlign = TextAlign.Center
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DashboardScreenPreview() {
+    DashboardScreen(
+        onAddItemClick = {},
+        onViewAllItemsClick = {},
+        onDeliveryStatusClick = {},
+        onProfileClick = {},
+        onLogoutClick = {}
+    )
 }

@@ -41,171 +41,177 @@ fun AdminProfileScreen(onBackClick: () -> Unit) {
     var password by remember { mutableStateOf(TextFieldValue("")) }
     var imageUri by remember { mutableStateOf<String?>(null) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+    BoxWithConstraints(
+        modifier = Modifier.fillMaxSize()
     ) {
-        // Header with back button and title
-        Row(
+        val maxHeight = maxHeight
+        val maxWidth = maxWidth
+
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .padding(16.dp)
         ) {
-            IconButton(onClick = onBackClick) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    tint = Color.Black
-                )
-            }
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            Text(
-                text = "Admin Profile",
-                style = TitleText,
-                modifier = Modifier.weight(5f),
-                textAlign = TextAlign.Center
-            )
-
-            Spacer(modifier = Modifier.weight(1f))
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Choose location
-        Text(
-            text = "Choose Your Location",
-            fontSize = 24.sp,
-            color = RedPrimary,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-
-        var expanded by remember { mutableStateOf(false) }
-        val locations = listOf("Cibiru", "Panyileukan", "Cipadung", "Bandung")
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.White, RoundedCornerShape(8.dp))
-                .border(1.dp, Color.LightGray, RoundedCornerShape(8.dp))
-        ) {
+            // Header with back button and title
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp)
-                    .clickable { expanded = !expanded },
-                horizontalArrangement = Arrangement.SpaceBetween,
+                    .padding(vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = location, color = Color.Black)
-                Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = "Dropdown Icon")
+                IconButton(onClick = onBackClick) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = Color.Black
+                    )
+                }
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Text(
+                    text = "Admin Profile",
+                    style = TitleText,
+                    modifier = Modifier.weight(5f),
+                    textAlign = TextAlign.Center
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
             }
 
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Choose location
+            Text(
+                text = "Choose Your Location",
+                fontSize = 24.sp,
+                color = RedPrimary,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            var expanded by remember { mutableStateOf(false) }
+            val locations = listOf("Cibiru", "Panyileukan", "Cipadung", "Bandung")
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.White, RoundedCornerShape(8.dp))
+                    .border(1.dp, Color.LightGray, RoundedCornerShape(8.dp))
             ) {
-                locations.forEach { loc ->
-                    DropdownMenuItem(onClick = {
-                        location = loc
-                        expanded = false
-                    }) {
-                        Text(text = loc)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .clickable { expanded = !expanded },
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = location, color = Color.Black)
+                    Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = "Dropdown Icon")
+                }
+
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false }
+                ) {
+                    locations.forEach { loc ->
+                        DropdownMenuItem(onClick = {
+                            location = loc
+                            expanded = false
+                        }) {
+                            Text(text = loc)
+                        }
                     }
                 }
             }
-        }
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        // Input fields for Name, Address, Email, Phone, Password
-        TextFieldWithLabel(
-            label = "Name",
-            value = name,
-            onValueChange = { name = it }
-        )
-        Spacer(modifier = Modifier.height(8.dp))
+            // Input fields for Name, Address, Email, Phone, Password
+            TextFieldWithLabel(
+                label = "Name",
+                value = name,
+                onValueChange = { name = it }
+            )
+            Spacer(modifier = Modifier.height(8.dp))
 
-        TextFieldWithLabel(
-            label = "Address",
-            value = address,
-            onValueChange = { address = it }
-        )
-        Spacer(modifier = Modifier.height(8.dp))
+            TextFieldWithLabel(
+                label = "Address",
+                value = address,
+                onValueChange = { address = it }
+            )
+            Spacer(modifier = Modifier.height(8.dp))
 
-        TextFieldWithLabel(
-            label = "Email",
-            value = email,
-            onValueChange = { email = it }
-        )
-        Spacer(modifier = Modifier.height(8.dp))
+            TextFieldWithLabel(
+                label = "Email",
+                value = email,
+                onValueChange = { email = it }
+            )
+            Spacer(modifier = Modifier.height(8.dp))
 
-        TextFieldWithLabel(
-            label = "Phone Number",
-            value = phone,
-            onValueChange = { phone = it }
-        )
-        Spacer(modifier = Modifier.height(8.dp))
+            TextFieldWithLabel(
+                label = "Phone Number",
+                value = phone,
+                onValueChange = { phone = it }
+            )
+            Spacer(modifier = Modifier.height(8.dp))
 
-        TextFieldWithLabel(
-            label = "Password",
-            value = password,
-            onValueChange = { password = it },
-            isPassword = true
-        )
-        Spacer(modifier = Modifier.height(16.dp))
+            TextFieldWithLabel(
+                label = "Password",
+                value = password,
+                onValueChange = { password = it },
+                isPassword = true
+            )
+            Spacer(modifier = Modifier.height(16.dp))
 
-        // Upload Image
-        Text(
-            text = "Restaurant Image",
-            fontSize = 18.sp,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
-                .background(Color.Gray, RoundedCornerShape(8.dp))
-                .clickable {
-                    // Logic to choose image (can use ImagePicker)
-                },
-            contentAlignment = Alignment.Center
-        ) {
-            if (imageUri != null) {
-                Image(
-                    painter = rememberAsyncImagePainter(imageUri),
-                    contentDescription = "Restaurant Image",
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+            // Upload Image
+            Text(
+                text = "Restaurant Image",
+                fontSize = 18.sp,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .background(Color.Gray, RoundedCornerShape(8.dp))
+                    .clickable {
+                        // Logic to choose image (can use ImagePicker)
+                    },
+                contentAlignment = Alignment.Center
+            ) {
+                if (imageUri != null) {
+                    Image(
+                        painter = rememberAsyncImagePainter(imageUri),
+                        contentDescription = "Restaurant Image",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Filled.CameraAlt,
+                        contentDescription = "Camera Icon",
+                        tint = Color.White,
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Save Button
+            val RedGradient4 = Color(0xFFE85353)
+
+            Button(
+                onClick = { /* Handle save confirmation */ },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = RedGradient4  // Mengubah warna latar belakang tombol
                 )
-            } else {
-                Icon(
-                    imageVector = Icons.Filled.CameraAlt,
-                    contentDescription = "Camera Icon",
-                    tint = Color.White,
-                    modifier = Modifier.size(30.dp)
-                )
+            ) {
+                Text(text = "Save", color = Color.White)
             }
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Save Button
-        val RedGradient4 = Color(0xFFE85353)
-
-        Button(
-            onClick = { /* Handle save confirmation */ },
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = RedGradient4  // Mengubah warna latar belakang tombol
-            )
-        ) {
-            Text(text = "Save", color = Color.White)
-        }
-
     }
 }
 
@@ -237,3 +243,8 @@ fun TextFieldWithLabel(
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun AdminProfileScreenPreview() {
+    AdminProfileScreen(onBackClick = {})
+}

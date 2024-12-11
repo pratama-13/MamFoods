@@ -18,7 +18,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.mamfoods.ui.theme.TitleText
 
@@ -102,7 +104,10 @@ fun ItemRow(item: Pair<String, String>) {
             modifier = Modifier
                 .weight(1f) // Memastikan nama item mengambil sisa ruang
         ) {
-            Text(item.first) // Judul Item
+            Text(
+                item.first,
+                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp) // Ukuran font untuk nama item
+            )
         }
 
         Spacer(modifier = Modifier.width(16.dp))
@@ -119,27 +124,27 @@ fun ItemRow(item: Pair<String, String>) {
                     if (quantity > 1) quantity -= 1 // Mengurangi kuantitas jika lebih dari 1
                 },
                 modifier = Modifier
-                    .size(30.dp) // Mengatur ukuran tombol tambah/kurang
-                    .background(RedGradient3, shape = CircleShape) // Memberikan background pada tombol
+                    .size(22.dp) // Ukuran tombol minus diperkecil
+                    .background(Color.Transparent) // Tidak ada background
                     .clip(CircleShape)
             ) {
                 Icon(
                     imageVector = Icons.Filled.Remove, // Ikon minus untuk pengurangan
                     contentDescription = "Decrease Quantity",
-                    tint = Color.White
+                    tint = Color.Black
                 )
             }
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(4.dp)) // Mengurangi jarak antara angka dan tombol kurang/tambah
 
             // Menampilkan jumlah item
             Text(
                 text = "$quantity",
-                modifier = Modifier.padding(horizontal = 16.dp),
-                style = MaterialTheme.typography.bodyLarge
+                modifier = Modifier.padding(horizontal = 8.dp), // Mengurangi padding horizontal
+                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp) // Ukuran font untuk jumlah
             )
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(4.dp)) // Mengurangi jarak antara angka dan tombol kurang/tambah
 
             // Tombol untuk menambah kuantitas (ikon plus)
             IconButton(
@@ -147,7 +152,7 @@ fun ItemRow(item: Pair<String, String>) {
                     quantity += 1 // Menambah kuantitas
                 },
                 modifier = Modifier
-                    .size(30.dp) // Ukuran tombol tambah/kurang disamakan
+                    .size(26.dp) // Ukuran tombol tambah diperkecil
                     .background(RedGradient3, shape = CircleShape) // Memberikan background pada tombol
                     .clip(CircleShape)
             ) {
@@ -159,13 +164,13 @@ fun ItemRow(item: Pair<String, String>) {
             }
         }
 
-        Spacer(modifier = Modifier.width(5.dp))
+        Spacer(modifier = Modifier.width(1.dp))
 
         // Tombol untuk menghapus item (keranjang sampah) - Diletakkan di kanan
         IconButton(
             onClick = { /* Logic untuk menghapus item */ },
             modifier = Modifier
-                .size(31.dp) // Ukuran tombol delete disesuaikan
+                .size(25.dp) // Ukuran tombol delete disesuaikan
                 .padding(start = 4.dp)
                 .background(RedGradient3, shape = CircleShape) // Memberikan background pada tombol delete
                 .clip(CircleShape)
@@ -179,3 +184,8 @@ fun ItemRow(item: Pair<String, String>) {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun AllItemsScreenPreview() {
+    AllItemsScreen(onBackClick = {})
+}
