@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.mamfoods.ui.theme.TitleText
 
@@ -32,27 +33,33 @@ fun AddItemScreen(onBackClick: () -> Unit, onAddItemClick: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally, // Center content horizontally
         verticalArrangement = Arrangement.Top // Align content to the top of the screen
     ) {
-        // Tombol Back di kiri atas
+        // Header dengan tombol kembali dan judul di tengah
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = onBackClick) {
-                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = Color.Black
+                )
             }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                text = "Add Item",
+                style = TitleText,
+                modifier = Modifier.weight(5f),
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Judul di tengah
-        Text(
-            text = "Add Item",
-            style = TitleText,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         // Kolom inputan untuk Nama Item
         TextField(
@@ -113,4 +120,9 @@ fun AddItemScreen(onBackClick: () -> Unit, onAddItemClick: () -> Unit) {
             Text("Add Item", color = Color.White)
         }
     }
+}
+@Preview(showBackground = true)
+@Composable
+fun AddItemScreenPreview() {
+    AddItemScreen(onBackClick = {}, onAddItemClick = {})
 }

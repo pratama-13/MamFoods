@@ -101,3 +101,7 @@ fun AppNavigation() {
         }
     }
 }
+
+fun DashboardScreen(onAddItemClick: () -> Unit, onViewAllItemsClick: () -> Unit, onDeliveryStatusClick: () -> Unit, onProfileClick: () -> Unit, onCreateUserClick: () -> Unit) {
+
+}
